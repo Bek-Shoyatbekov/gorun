@@ -1,11 +1,27 @@
 package main
 
 import (
-	"github.com/fsnotify/fsnotify"
 	"log"
+
+	"github.com/fsnotify/fsnotify"
 )
 
+// "github.com/fsnotify/fsnotify"
+
+// "github.com/fsnotify/fsnotify"
+// "log"
+
+type Configurations struct {
+	rootDir  string
+	exclude  []string
+	logError bool
+	delay    int32
+}
+
+const PATH = "./.gorun"
+
 func main() {
+	// configs := GetConfigs()
 	// Create new watcher.
 	watcher, err := fsnotify.NewWatcher()
 	if err != nil {
@@ -21,9 +37,8 @@ func main() {
 				if !ok {
 					return
 				}
-				log.Println("event:", event)
-				if event.Has(fsnotify.Write) {
-					log.Println("modified file:", event.Name)
+				if event.Has(fsnotify.Write) || event.Has(fsnotify.Remove) {
+					Restart()
 				}
 			case err, ok := <-watcher.Errors:
 				if !ok {
@@ -33,8 +48,8 @@ func main() {
 			}
 		}
 	}()
-
-	// Add a path.
+	// Add the paths.
+	// TODO add all paths to watcher
 	err = watcher.Add("./file.txt")
 	if err != nil {
 		log.Fatal(err)

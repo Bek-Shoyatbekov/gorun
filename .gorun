@@ -1,0 +1,7 @@
+excludes:""
+
+rootDir:"."
+
+logErrors:true
+
+delay:0
