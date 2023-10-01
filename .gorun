@@ -1,6 +1,6 @@
 excludes:""
 
-rootDir:"."
+rootDir:"./"
 
 logErrors:true
 
