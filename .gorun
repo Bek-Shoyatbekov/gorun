@@ -1,4 +1,4 @@
-excludes:""
+excludes:".git,.gorun,addAll.go,checkError.go,checkFileExistance.go,cleanConsole.go,config.go,excludeFiles.go,extractConfig.go,go.mod,go.sum,main.go,readFile.go,restart.go"
 
 rootDir:"./"
 

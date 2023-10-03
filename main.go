@@ -6,6 +6,10 @@ import (
 	"os"
 
 	"github.com/fsnotify/fsnotify"
+	// "fmt"
+	// "log"
+	// "os"
+	// "github.com/fsnotify/fsnotify"
 )
 
 type Configurations struct {
@@ -18,6 +22,7 @@ type Configurations struct {
 const PATH = "./.gorun"
 
 func main() {
+	fmt.Println("hello")
 	configs := GetConfigs()
 	// Create new watcher.
 	watcher, err := fsnotify.NewWatcher()
@@ -34,8 +39,9 @@ func main() {
 					return
 				}
 				if event.Has(fsnotify.Write) || event.Has(fsnotify.Remove) {
-					fmt.Println("Restarting...")
+					Clean()
 					Restart()
+					fmt.Print("Restarting...")
 				}
 			case err, ok := <-watcher.Errors:
 				if !ok {
@@ -46,20 +52,21 @@ func main() {
 		}
 	}()
 	// Add the paths.
-	dirs := getDirs(configs.rootDir)
+	dirs := getDirs()
 	watchFiles := ExcludeFiles(configs.exclude, dirs)
 	AddFilesAndFolders(watcher, watchFiles)
 	// Block main goroutine forever.
 	<-make(chan struct{})
 }
 
-func getDirs(root string) []string {
+func getDirs() []string {
 	var result []string
 	entries, err := os.ReadDir("./")
 	if err != nil {
 		log.Fatal(err)
 	}
 	for _, e := range entries {
+		fmt.Println(e.Name())
 		result = append(result, e.Name())
 	}
 	return result
