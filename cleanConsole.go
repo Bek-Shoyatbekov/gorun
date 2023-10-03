@@ -14,17 +14,13 @@ func init() {
 		cmd := exec.Command("clear")
 		cmd.Stdout = os.Stdout
 		err := cmd.Run()
-		if err != nil {
-			return
-		}
+		CheckError(err)
 	}
 	clear["windows"] = func() {
 		cmd := exec.Command("cmd", "/c", "cls")
 		cmd.Stdout = os.Stdout
 		err := cmd.Run()
-		if err != nil {
-			return
-		}
+		CheckError(err)
 	}
 }
 func Clean() {

@@ -6,10 +6,6 @@ import (
 	"os"
 
 	"github.com/fsnotify/fsnotify"
-	// "fmt"
-	// "log"
-	// "os"
-	// "github.com/fsnotify/fsnotify"
 )
 
 type Configurations struct {
@@ -22,7 +18,6 @@ type Configurations struct {
 const PATH = "./.gorun"
 
 func main() {
-	fmt.Println("hello")
 	configs := GetConfigs()
 	// Create new watcher.
 	watcher, err := fsnotify.NewWatcher()
@@ -62,11 +57,8 @@ func main() {
 func getDirs() []string {
 	var result []string
 	entries, err := os.ReadDir("./")
-	if err != nil {
-		log.Fatal(err)
-	}
+	CheckError(err)
 	for _, e := range entries {
-		fmt.Println(e.Name())
 		result = append(result, e.Name())
 	}
 	return result

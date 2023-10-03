@@ -1,7 +1,5 @@
 package main
 
-import ()
-
 var (
 	CONFIG_PATH = "./.gorun"
 )
